@@ -1,3 +1,6 @@
+__author__ = 'ak811'
+__date__ = 'Spring 2019'
+
 import random
 from math import *
 from random import randint
@@ -28,7 +31,6 @@ def find_best_individual(population):
 
 def genetic_algorithm(population, fitness_function):
     mutation_probability_percent = 10
-    generation_count = generations_count
 
     for i in range(0, generation_count):
         new_population = []
@@ -47,12 +49,12 @@ def genetic_algorithm(population, fitness_function):
     return population[find_best_individual(population)]
 
 
-def fitness_function(population):
+def fitness(population):
     fitness_values = []
     fitness_percents = []
 
-    # because the F(x, y) is always negative, sum will not be zero and fitness percents are always positive.
-    sum = -1
+    # Cross-in-Tray function always returns negative value.
+    sum = 0
     for i in range(0, len(population)):
         fitness_values.append(cross_in_tray_function(population[i].x, population[i].y))
         sum += fitness_values[i]
@@ -66,7 +68,6 @@ def fitness_function(population):
 def random_selection(population, fitness_percents):
     random_number = randint(0, 100)
 
-    # select an individual based on fitness_percent
     sum = 0
     selected_individual = population[0]
     for i in range(0, len(population)):
@@ -94,6 +95,7 @@ def produce_child(father, mother):
 def mutate_child(child):
     x_or_y = randint(0, 1)
     random_float = random.uniform(0.9, 1.1)
+
     if x_or_y == 0:
         child.x *= random_float
     else:
@@ -102,14 +104,14 @@ def mutate_child(child):
     return child
 
 
-generations_count = int(input("Enter the generations count: "))
-populations_count = int(input("Enter the populations count: "))
+generation_count = int(input("Enter the generation count: "))
+population_count = int(input("Enter the population count: "))
 
 population = []
-for i in range(0, populations_count):
+for i in range(0, population_count):
     population.append(Individual(random.uniform(-10, 10), random.uniform(-10, 10)))
 
-best_individual = genetic_algorithm(population, fitness_function(population))
+best_individual = genetic_algorithm(population, fitness(population))
 
 x = best_individual.x
 y = best_individual.y
