@@ -1,6 +1,10 @@
+__author__ = 'ak811'
+__date__ = 'Spring 2019'
+
 import random
 from math import *
 from random import randint
+
 
 class Node(object):
     def __init__(self, x, y):
@@ -13,12 +17,12 @@ def cross_in_tray_function(x, y):
 
 
 def simulated_annealing(current):
-    for temperature in reversed(range(0, T)):
+    for t in reversed(range(0, temperature)):
 
-        if temperature == 0:
+        if t == 0:
             return current
 
-        next = produce_random_successor_of_current(current)
+        next = produce_random_successor_of_current_node(current)
 
         delta_e = abs(cross_in_tray_function(next.x, next.y)) - abs(cross_in_tray_function(current.x, current.y))
 
@@ -26,24 +30,24 @@ def simulated_annealing(current):
             current = next
         else:
             random_number = randint(0, 100)
-            probability = exp(delta_e / temperature)
+            probability = exp(delta_e / t)
             if random_number < probability:
                 current = next
 
 
-def produce_random_successor_of_current(current):
+def produce_random_successor_of_current_node(current):
     successor = current
 
-    change_x_or_change_y_or_change_both = randint(0, 2)
+    changing_status = randint(0, 2)
 
     start = 0.8
     end = 1.2
 
-    if change_x_or_change_y_or_change_both == 0:
+    if changing_status == 0:
         successor.x *= random.uniform(start, end)
-    elif change_x_or_change_y_or_change_both == 1:
+    elif changing_status == 1:
         successor.y *= random.uniform(start, end)
-    elif change_x_or_change_y_or_change_both == 2:
+    elif changing_status == 2:
         successor.x *= random.uniform(start, end)
         successor.y *= random.uniform(start, end)
 
@@ -51,14 +55,12 @@ def produce_random_successor_of_current(current):
 
 
 def produce_random_node():
-    left = r1
-    right = r2
     return Node(random.uniform(left, right), random.uniform(left, right))
 
 
-r1 = int(input("Enter the left range of x and y: "))
-r2 = int(input("Enter the right range of x and y: "))
-T = int(input("Enter the start temperature: "))
+left = int(input("Enter the left range of x and y: "))
+right = int(input("Enter the right range of x and y: "))
+temperature = int(input("Enter the start temperature: "))
 
 current = produce_random_node()
 
