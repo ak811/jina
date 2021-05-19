@@ -67,6 +67,7 @@ current = produce_random_node()
 bestNode = simulated_annealing(current)
 x = bestNode.x
 y = bestNode.y
+
 print("x = " + str(x))
 print("y = " + str(y))
 print("F(x,y) = " + str(cross_in_tray_function(x, y)))
