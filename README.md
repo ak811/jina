@@ -7,6 +7,7 @@
 ## Overview
 This project implements the Genetic and Simulated Annealing evolutionary algorithms to minimize Cross-in-Tray Function.
 <br>
+
 The documentation will be provided soon.
 
 <br>
